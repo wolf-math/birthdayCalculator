@@ -41,4 +41,4 @@ function chanceByAccuracy(num, precision = 0.01) {
 }
 
 console.log(chanceByRuns(23, 100000));
-console.log(chanceByAccuracy(23, 0.000004));
+console.log(chanceByAccuracy(23, 0.000001));
