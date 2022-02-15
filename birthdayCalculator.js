@@ -1,11 +1,9 @@
-function birthdayRun(numberOfPeople, runs) {
+function birthdayRun(numberOfPeople) {
   const birthdays = [];
-  let i = 1;
   // create random "dates" represented by a number between 1 and 365.25
-  while (i <= numberOfPeople) {
-    randomDate = Math.floor(Math.random() * (365.25 - 1) + 1);
+  for (let i = 1; i <= numberOfPeople; i++) {
+    randomDate = Math.round(Math.random() * (365.25 - 1) + 1);
     birthdays.push(randomDate);
-    i++;
   }
   // check for duplicates
   const duplicates = birthdays.filter(
@@ -27,7 +25,6 @@ function calculateProbability(num, runs) {
 
 function chanceByRuns(num, runs) {
   const probability = calculateProbability(num, runs);
-
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
