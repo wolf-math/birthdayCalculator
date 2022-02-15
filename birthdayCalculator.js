@@ -1,4 +1,4 @@
-function birthdayRun(numberOfPeople) {
+function birthdayRun(numberOfPeople, runs) {
   const birthdays = [];
   let i = 1;
   // create random "dates" represented by a number between 1 and 365.25
@@ -15,29 +15,33 @@ function birthdayRun(numberOfPeople) {
   return duplicates.length > 0 ? 1 : 0;
 }
 
-function chanceByRuns(num, runs) {
+function calculateProbability(num, runs) {
   let sharedBirthdays = 0;
   // sum of the number of birthdays for the number of runs
   for (let i = 0; i <= runs; i++) {
     sharedBirthdays += birthdayRun(num);
   }
   // the percentage of shared birthdays for the number of runs
-  const probability = sharedBirthdays / runs;
+  return sharedBirthdays / runs;
+}
+
+function chanceByRuns(num, runs) {
+  const probability = calculateProbability(num, runs);
 
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
-function chanceByAccuracy(num, precision = 10) {
-  let sharedBirthdays = 0;
-  // sum of the number of birthdays for the number of runs
-  for (let i = 0; i <= runs; i++) {
-    sharedBirthdays += birthdayRun(num);
-  }
-  // the percentage of shared birthdays for the number of runs
-  const probability =
-    Math.round((sharedBirthdays / 10000) * 10 ** precision) / 10 ** precision;
+function chanceByAccuracy(num, precision = 0.01) {
+  // JavaScript always adds a preceeding 0 before a decemal.
+  // -2 subtracts the 0 and the period, thus leaving the order of magnitude.
+  const decimalPlaces = precision.toString().length - 2;
+  // For this function I'm using an arbitrary number of 10001 runs
+  const probability = calculateProbability(num, 10001).toPrecision(
+    decimalPlaces
+  );
 
-  return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
+  return `Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
 console.log(chanceByRuns(23, 100000));
+console.log(chanceByAccuracy(23, 0.000004));
