@@ -2,7 +2,8 @@ function birthdayRun(numberOfPeople) {
   const birthdays = [];
   // create random "dates" represented by a number between 1 and 365.25
   for (let i = 1; i <= numberOfPeople; i++) {
-    randomDate = Math.round(Math.random() * (365.25 - 1) + 1);
+    // there are 1461 days in 4 years. Mod(365) accounts for leap year.
+    randomDate = Math.round(Math.random() * 1461 + 1) % 365;
     birthdays.push(randomDate);
   }
   // check for duplicates
