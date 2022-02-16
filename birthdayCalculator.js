@@ -6,11 +6,9 @@ function birthdayRun(numberOfPeople) {
     birthdays.push(randomDate);
   }
   // check for duplicates
-  const duplicates = birthdays.filter(
-    (date, index) => index !== birthdays.indexOf(date)
-  );
+  const duplicates = new Set(birthdays).size !== birthdays.length;
   // return 1 if there are duplicates, 0 if not
-  return duplicates.length > 0 ? 1 : 0;
+  return duplicates ? 1 : 0;
 }
 
 function calculateProbability(num, runs) {
