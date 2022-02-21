@@ -1,8 +1,11 @@
 function birthdayRun(numberOfPeople) {
   const birthdays = [];
   for (let i = 1; i <= numberOfPeople; i++) {
-    // there are 1461 days in 4 years. Mod(365) accounts for leap year.
-    randomDate = Math.round(Math.random() * 1460 + 1) % 365;
+    // there are 1461 days in 4 years. Chances of Feb 29 is 1/1461
+    randomDayOfFourYears = Math.round(Math.random() * 1460 + 1);
+    // Assign a number between 1 and 365. 366 if leap year.
+    randomDate =
+      randomDayOfFourYears === 1461 ? 366 : randomDayOfFourYears % 365;
     birthdays.push(randomDate);
   }
   // check for duplicates
@@ -39,4 +42,4 @@ function chanceByAccuracy(num, precision = 0.01) {
 }
 
 console.log(chanceByRuns(23, 1000000));
-console.log(chanceByAccuracy(23, 0.00001));
+// console.log(chanceByAccuracy(23, 0.00001));
