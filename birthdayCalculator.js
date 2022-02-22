@@ -29,24 +29,15 @@ function chanceByRuns(num, runs) {
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
-function probabilityByPrecision(num, precision) {
+function chanceByAccuracy(num, precision) {
   let runs = 1;
   let probability = 0;
-  while (probability.toString().length < precision.toString().length) {
+  while (1 / runs > precision) {
     probability = probabilityByRuns(num, runs);
-    console.log(probability);
     runs++;
   }
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
-function chanceByAccuracy(num, precision) {
-  const accuracy = probabilityByPrecision(num, precision);
-  return `Given ${num} people, the chance of at least two people having the same birthday is ${accuracy}`;
-}
-
-// console.log(chanceByRuns(23, 2));
-console.log(chanceByAccuracy(23, 0.00001));
-// console.log(calculateProbability(23, 3));
-
-// console.log(birthdayRun(23));
+console.log(chanceByRuns(23, 100000));
+console.log(chanceByAccuracy(23, 0.001));
