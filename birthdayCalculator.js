@@ -48,5 +48,5 @@ function chanceByAccuracy(num, precision) {
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
-// console.log(chanceByRuns(23, 5156));
+console.log(chanceByRuns(23, 5156));
 console.log(chanceByAccuracy(23, 0.0001));
