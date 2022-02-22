@@ -34,6 +34,8 @@ function chanceByAccuracy(num, precision) {
   let runs = 1;
   let probability = 0;
   let prevProb = 1;
+  // runs until the difference between the current probability and the
+  // previous calculated probability is less than the precision
   while (Math.abs(probability - prevProb) > precision) {
     prevProb = probability;
     probability = probabilityByRuns(num, runs);
