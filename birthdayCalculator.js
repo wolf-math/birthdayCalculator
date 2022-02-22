@@ -14,7 +14,7 @@ function birthdayRun(numberOfPeople) {
   return duplicates ? 1 : 0;
 }
 
-function calculateProbability(num, runs) {
+function probabilityByRuns(num, runs) {
   let sharedBirthdays = 0;
   // sum of the number of birthdays for the number of runs
   for (let i = 0; i <= runs; i++) {
@@ -25,21 +25,28 @@ function calculateProbability(num, runs) {
 }
 
 function chanceByRuns(num, runs) {
-  const probability = calculateProbability(num, runs);
+  const probability = probabilityByRuns(num, runs);
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
-function chanceByAccuracy(num, precision = 0.01) {
-  // JavaScript always adds a preceeding 0 before a decemal.
-  // -2 subtracts the 0 and the period, thus leaving the order of magnitude.
-  const decimalPlaces = precision.toString().length - 2;
-  // For this function I'm using an arbitrary number of 10001 runs
-  const probability = calculateProbability(num, 10001).toPrecision(
-    decimalPlaces
-  );
-
-  return `Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
+function probabilityByPrecision(num, precision) {
+  let runs = 1;
+  let probability = 0;
+  while (probability.toString().length < precision.toString().length) {
+    probability = probabilityByRuns(num, runs);
+    console.log(probability);
+    runs++;
+  }
+  return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
-console.log(chanceByRuns(23, 1000000));
-// console.log(chanceByAccuracy(23, 0.00001));
+function chanceByAccuracy(num, precision) {
+  const accuracy = probabilityByPrecision(num, precision);
+  return `Given ${num} people, the chance of at least two people having the same birthday is ${accuracy}`;
+}
+
+// console.log(chanceByRuns(23, 2));
+console.log(chanceByAccuracy(23, 0.00001));
+// console.log(calculateProbability(23, 3));
+
+// console.log(birthdayRun(23));
