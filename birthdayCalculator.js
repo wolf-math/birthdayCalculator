@@ -29,15 +29,24 @@ function chanceByRuns(num, runs) {
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
+// Euler's Method????
 function chanceByAccuracy(num, precision) {
   let runs = 1;
   let probability = 0;
-  while (1 / runs > precision) {
+  let prevProb = 1;
+  while (Math.abs(probability - prevProb) > precision) {
+    prevProb = probability;
     probability = probabilityByRuns(num, runs);
+    // console.log({
+    //   prevProb,
+    //   probability,
+    //   runs,
+    //   diff: Math.abs(probability - prevProb)
+    // });
     runs++;
   }
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
-console.log(chanceByRuns(23, 100000));
-console.log(chanceByAccuracy(23, 0.001));
+// console.log(chanceByRuns(23, 5156));
+console.log(chanceByAccuracy(23, 0.0001));
