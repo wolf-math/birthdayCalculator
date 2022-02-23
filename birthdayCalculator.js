@@ -1,3 +1,14 @@
+// Calculates the actual statistical probability
+function birthdayStatCalc(num) {
+  let n = 1;
+  for (let i = 0; i <= num - 1; i++) {
+    //
+    let m = i / 365;
+    n *= 1 - m;
+  }
+  return 1 - n;
+}
+
 function birthdayRun(numberOfPeople) {
   const birthdays = [];
   for (let i = 1; i <= numberOfPeople; i++) {
@@ -29,28 +40,15 @@ function chanceByRuns(num, runs) {
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
-// Euler's Method????
 function chanceByAccuracy(num, precision) {
-  // Start with 2 so that it won't stop on the first iteration (1/1=1)
-  let runs = 2;
-  // probability and prevProb to start on 2 different numbers.
+  let runs = 1;
   let probability = 0;
-  let prevProb = 1;
-  // runs until the difference between the current probability and the
-  // previous calculated probability is less than the precision
-  while (Math.abs(probability - prevProb) > precision) {
-    prevProb = probability;
+  while (Math.abs(probability - birthdayStatCalc(num)) > precision) {
     probability = probabilityByRuns(num, runs);
-    console.log({
-      prevProb,
-      probability,
-      runs,
-      diff: Math.abs(probability - prevProb)
-    });
     runs++;
   }
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
-console.log(chanceByRuns(23, 100000));
-console.log(chanceByAccuracy(23, 0.0001));
+// console.log(chanceByRuns(23, 100000));
+console.log(chanceByAccuracy(23, 0.00001));
