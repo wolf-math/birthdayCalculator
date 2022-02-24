@@ -17,7 +17,7 @@ function birthdayRun(numberOfPeople) {
 function probabilityByRuns(num, runs) {
   let sharedBirthdays = 0;
   // sum of the number of birthdays for the number of runs
-  for (let i = 0; i <= runs; i++) {
+  for (let i = 1; i <= runs; i++) {
     sharedBirthdays += birthdayRun(num);
   }
   // the percentage of shared birthdays for the number of runs
@@ -29,28 +29,46 @@ function chanceByRuns(num, runs) {
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
-// Euler's Method????
-function chanceByAccuracy(num, precision) {
-  // Start with 2 so that it won't stop on the first iteration (1/1=1)
+function probabilityByAccuracy(num, accuracy) {
   let runs = 2;
-  // probability and prevProb to start on 2 different numbers.
   let probability = 0;
   let prevProb = 1;
-  // runs until the difference between the current probability and the
-  // previous calculated probability is less than the precision
-  while (Math.abs(probability - prevProb) > precision) {
-    prevProb = probability;
-    probability = probabilityByRuns(num, runs);
-    console.log({
-      prevProb,
-      probability,
-      runs,
-      diff: Math.abs(probability - prevProb)
-    });
+
+  while (Math.abs(probability - prevProb) > accuracy) {
+    // prevProb = probability;
+    // probability = probabilityByRuns(num, runs);
+    // console.log({
+    //   probability,
+    //   prevProb,
+    //   diff: Math.abs(probability - prevProb)
+    // });
+    let probability = 0.1;
+    let prevProb = 0.99;
+    for (let i = 2; i <= runs; i++) {
+      prevProb = probability;
+      probability = probabilityByRuns(23, i);
+      console.log({
+        probability,
+        i,
+        runs,
+        diff: Math.abs(probability - prevProb)
+      });
+      if (
+        probability > 0 &&
+        probability < 1 &&
+        Math.abs(probability - prevProb) <= accuracy
+      )
+        return probability;
+    }
     runs++;
   }
+  return probability;
+}
+
+function chanceByAccuracy(num, accuracy) {
+  const probability = probabilityByAccuracy(num, accuracy);
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
-console.log(chanceByRuns(23, 100000));
+// console.log(chanceByRuns(23, 1000000));
 console.log(chanceByAccuracy(23, 0.0001));
