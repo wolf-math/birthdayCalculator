@@ -41,12 +41,6 @@ function chanceByAccuracy(num, precision) {
   while (Math.abs(probability - prevProb) > precision) {
     prevProb = probability;
     probability = probabilityByRuns(num, runs);
-    console.log({
-      prevProb,
-      probability,
-      runs,
-      diff: Math.abs(probability - prevProb)
-    });
     runs++;
   }
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
