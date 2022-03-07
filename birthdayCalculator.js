@@ -29,22 +29,5 @@ function chanceByRuns(num, runs) {
   return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
 }
 
-// Euler's Method????
-function chanceByAccuracy(num, precision) {
-  // Start with 2 so that it won't stop on the first iteration (1/1=1)
-  let runs = 2;
-  // probability and prevProb to start on 2 different numbers.
-  let probability = 0;
-  let prevProb = 1;
-  // runs until the difference between the current probability and the
-  // previous calculated probability is less than the precision
-  while (Math.abs(probability - prevProb) > precision) {
-    prevProb = probability;
-    probability = probabilityByRuns(num, runs);
-    runs++;
-  }
-  return `'Given ${num} people, the chance of at least two people having the same birthday is ${probability}`;
-}
-
+// node birthdayCalculator.js
 console.log(chanceByRuns(23, 100000));
-console.log(chanceByAccuracy(23, 0.0001));
